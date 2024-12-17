@@ -12,14 +12,14 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function getSeason(date) {
-  if (date === undefined) {
+  if (typeof date === 'undefined') {
     return "Unable to determine the time of year!";
   }
-  if (!(date instanceof Date) || isNaN(date.getTime())) {
+  if (!(date instanceof Date) || isNaN(date.valueOf())) {
     throw new Error('Invalid date!');
   }
   const month = date.getMonth();
-  let season = '';
+  let season;
   switch (month) {
     case 11:
     case 0:
@@ -44,7 +44,6 @@ function getSeason(date) {
     default:
       throw new Error('Invalid date!');
   }
-
   return season;
 }
 
