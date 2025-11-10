@@ -14,8 +14,40 @@ const { NotImplementedError } = require('../lib');
  *
  */
 function transform(/* arr */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+  if (!Array.isArray(arr)) {
+    throw new Error("'arr' parameter must be an instance of the Array!");
+  }
+
+  const resArr = [];
+  const length = arr.length;
+  let skipNext = false;
+
+  for (let i = 0; i < length; i++) {
+    const item = arr[i];
+
+    if (skipNext) {
+      skipNext = false;
+      continue;
+    }
+
+    if (item === '--discard-next') {
+      skipNext = true;
+      continue;
+    } 
+
+    if (item === '--discard-prev') {
+      if (resArr.length > 0) {
+        resArr.pop();
+      }
+      continue;
+    }
+
+    if (typeof item === 'number') {
+      resArr.push(item);
+    }
+  }
+
+  return resArr;
 }
 
 module.exports = {
